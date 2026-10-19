@@ -46,8 +46,8 @@
       element.hidden = key !== name;
     });
     restartButton.hidden = !gameStarted || name === "welcome" || name === "final";
+    renderBoard();
     if (name === "board") {
-      renderBoard();
       document.getElementById("board-instructions").textContent = "Tap an empty spot to start a dinosaur duel.";
     }
   }
@@ -131,12 +131,6 @@
     document.getElementById("duel-dino-health").textContent = "Health: " + dinosaurHealth + " of 2";
     document.getElementById("duel-player-bar").style.width = (playerHealth / 2 * 100) + "%";
     document.getElementById("duel-dino-bar").style.width = (dinosaurHealth / 2 * 100) + "%";
-    document.getElementById("player-health").textContent = "Health: " + playerHealth + " of 2";
-    document.getElementById("player-health-dots").innerHTML = healthHearts(playerHealth);
-  }
-
-  function healthHearts(count) {
-    return '<span aria-hidden="true">' + (count > 0 ? "♥ ".repeat(count).trim().replaceAll(" ", "</span><span aria-hidden=\"true\">") : "♡") + "</span>";
   }
 
   function chooseResponse(response) {
