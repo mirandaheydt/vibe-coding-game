@@ -6,6 +6,7 @@
     { name: "Stomp", counter: "Jump", hint: "The ground is about to shake!" },
     { name: "Tail Swipe", counter: "Duck", hint: "Duck under that swinging tail!" }
   ];
+  const MAX_HEALTH = 3;
   const WINNING_LINES = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],
     [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -34,9 +35,9 @@
   let gameStarted = false;
   let gameOver = false;
   let pendingCell = null;
-  let playerHealth = 2;
-  let dinosaurHealth = 2;
-  let moveIndex = 0;
+  let playerHealth = MAX_HEALTH;
+  let dinosaurHealth = MAX_HEALTH;
+  let currentMove = null;
   let responseResolved = false;
   let duelResolved = false;
 
@@ -64,9 +65,9 @@
     board = Array(9).fill("");
     gameOver = false;
     pendingCell = null;
-    playerHealth = 2;
-    dinosaurHealth = 2;
-    moveIndex = 0;
+    playerHealth = MAX_HEALTH;
+    dinosaurHealth = MAX_HEALTH;
+    currentMove = null;
     responseResolved = false;
     duelResolved = false;
     duelFeedback.hidden = true;
@@ -103,9 +104,9 @@
   function beginDuel(index) {
     if (!gameStarted || gameOver || currentScreen !== "board" || board[index]) return;
     pendingCell = index;
-    playerHealth = 2;
-    dinosaurHealth = 2;
-    moveIndex = 0;
+    playerHealth = MAX_HEALTH;
+    dinosaurHealth = MAX_HEALTH;
+    currentMove = null;
     responseResolved = false;
     duelResolved = false;
     responseButtons.forEach(button => { button.disabled = false; });
@@ -113,6 +114,7 @@
     duelFeedback.hidden = true;
     nextExchangeButton.hidden = true;
     returnBoardButton.hidden = true;
+    currentMove = randomMove();
     renderHealth();
     renderMove();
     showScreen("duel");
@@ -120,17 +122,21 @@
     responseButtons[0].focus();
   }
 
+  function randomMove() {
+    return MOVE_SEQUENCE[Math.floor(Math.random() * MOVE_SEQUENCE.length)];
+  }
+
   function renderMove() {
-    const move = MOVE_SEQUENCE[moveIndex % MOVE_SEQUENCE.length];
+    const move = currentMove;
     document.getElementById("dino-move-name").textContent = move.name.toUpperCase() + "!";
     document.getElementById("move-hint").textContent = move.hint;
   }
 
   function renderHealth() {
-    document.getElementById("duel-player-health").textContent = "Health: " + playerHealth + " of 2";
-    document.getElementById("duel-dino-health").textContent = "Health: " + dinosaurHealth + " of 2";
-    document.getElementById("duel-player-bar").style.width = (playerHealth / 2 * 100) + "%";
-    document.getElementById("duel-dino-bar").style.width = (dinosaurHealth / 2 * 100) + "%";
+    document.getElementById("duel-player-health").textContent = "Health: " + playerHealth + " of " + MAX_HEALTH;
+    document.getElementById("duel-dino-health").textContent = "Health: " + dinosaurHealth + " of " + MAX_HEALTH;
+    document.getElementById("duel-player-bar").style.width = (playerHealth / MAX_HEALTH * 100) + "%";
+    document.getElementById("duel-dino-bar").style.width = (dinosaurHealth / MAX_HEALTH * 100) + "%";
   }
 
   function chooseResponse(response) {
@@ -138,7 +144,7 @@
     responseResolved = true;
     responseButtons.forEach(button => { button.disabled = true; });
 
-    const move = MOVE_SEQUENCE[moveIndex % MOVE_SEQUENCE.length];
+    const move = currentMove;
     if (response === move.counter) {
       dinosaurHealth = Math.max(0, dinosaurHealth - 1);
       showFeedback("Great counter! " + response + " beat " + move.name + ". The dinosaur loses 1 health.", "win");
@@ -164,7 +170,7 @@
 
   function nextExchange() {
     if (currentScreen !== "duel" || !responseResolved || duelResolved || playerHealth <= 0 || dinosaurHealth <= 0) return;
-    moveIndex += 1;
+    currentMove = randomMove();
     responseResolved = false;
     nextExchangeButton.hidden = true;
     duelFeedback.hidden = true;
