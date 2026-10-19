@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#174d3a">
+  <meta name="description" content="A colorful dinosaur-themed tic-tac-toe game. Win tiny dinosaur duels to claim your squares!">
+  <title>Dino Duel — Jurassic Tic-Tac-Toe</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <main class="game-shell">
+    <div class="jungle-sky" aria-hidden="true">
+      <span class="sun"></span>
+      <span class="cloud cloud-one"></span>
+      <span class="cloud cloud-two"></span>
+      <span class="leaf leaf-one"></span>
+      <span class="leaf leaf-two"></span>
+      <span class="leaf leaf-three"></span>
+      <span class="leaf leaf-four"></span>
+    </div>
+
+    <header class="topbar">
+      <a class="wordmark" href="#" aria-label="Dino Duel home" id="home-link">
+        <span class="wordmark-icon" aria-hidden="true">✦</span>
+        <span>DINO <b>DUEL</b></span>
+      </a>
+      <button class="button button-small button-ghost" id="restart-button" type="button" hidden>↻ Restart game</button>
+    </header>
+
+    <section class="screen welcome-screen" id="welcome-screen" aria-labelledby="welcome-title">
+      <p class="eyebrow"><span aria-hidden="true">🌿</span> A PREHISTORIC LITTLE SHOWDOWN <span aria-hidden="true">🌿</span></p>
+      <h1 id="welcome-title">DINO DUEL <span>TIC-TAC-TOE</span></h1>
+      <p class="intro-copy">Win a dinosaur duel to claim an <strong class="x-text">X</strong>. Lose, and a cheeky <strong class="o-text">O</strong> goes in your square!</p>
+
+      <div class="hero-dinos" aria-label="A purple T. rex and a blue triceratops">
+        <div class="hero-dino hero-dino-purple">
+          <svg viewBox="0 0 220 160" role="img" aria-label="Friendly purple T. rex">
+            <ellipse cx="111" cy="139" rx="66" ry="10" fill="#143d32" opacity=".18"/>
+            <path d="M42 108 Q20 107 18 87 Q17 79 30 83 L66 93 Q79 63 113 65 L133 73 L153 66 Q171 61 182 75 L197 83 L194 99 L175 103 L171 125 Q169 134 158 133 L151 132 L151 112 L127 112 L123 132 Q121 139 110 138 L100 137 L101 109 L78 105 L64 122 Q56 130 48 122 Z" fill="#9860e9" stroke="#38235e" stroke-width="5" stroke-linejoin="round"/>
+            <path d="M126 73 Q135 45 158 39 Q173 34 185 47 L204 56 L207 75 L194 87 L174 87 L166 102 L145 101 L140 87 Z" fill="#9860e9" stroke="#38235e" stroke-width="5" stroke-linejoin="round"/>
+            <path d="M166 77 L204 77 L201 88 L178 91 L166 86 Z" fill="#ffd7e6" stroke="#38235e" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M176 86 L182 86 L181 92 L175 92 Z M190 85 L196 85 L195 91 L189 91 Z" fill="#fff"/>
+            <ellipse cx="177" cy="56" rx="8" ry="9" fill="#fff"/>
+            <circle cx="179" cy="57" r="4" fill="#302044"/>
+            <path d="M119 91 L135 98 L143 91 M123 104 L137 110" fill="none" stroke="#6d42bb" stroke-width="5" stroke-linecap="round"/>
+            <path d="M97 101 L109 104 L106 112 L94 109 Z" fill="#fff2ad" stroke="#38235e" stroke-width="3"/>
+          </svg>
+          <span class="dino-caption">PURPLE REX</span>
+        </div>
+        <div class="versus-badge" aria-hidden="true">VS</div>
+        <div class="hero-dino hero-dino-blue">
+          <svg viewBox="0 0 220 160" role="img" aria-label="Friendly blue triceratops">
+            <ellipse cx="111" cy="139" rx="67" ry="10" fill="#143d32" opacity=".18"/>
+            <path d="M40 109 Q21 102 25 84 L43 88 Q56 61 94 67 L124 75 Q144 72 158 86 L184 89 Q202 94 199 108 L185 118 L180 133 L165 133 L161 112 L132 112 L127 134 L111 134 L110 109 L76 109 L70 132 L54 132 L53 110 Z" fill="#39b9dc" stroke="#124d68" stroke-width="5" stroke-linejoin="round"/>
+            <path d="M119 74 L128 48 L143 65 L157 43 L165 71 Q185 73 193 91 L181 106 L155 105 L141 93 L122 94 Z" fill="#39b9dc" stroke="#124d68" stroke-width="5" stroke-linejoin="round"/>
+            <path d="M124 74 L111 53 L135 65 L151 43 L158 69" fill="#b9f0f7" stroke="#124d68" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M166 80 L192 85 L207 96 L202 109 L177 109 L164 99 Z" fill="#b9f0f7" stroke="#124d68" stroke-width="4" stroke-linejoin="round"/>
+            <circle cx="171" cy="83" r="8" fill="#fff"/>
+            <circle cx="173" cy="84" r="4" fill="#18334a"/>
+            <path d="M181 100 Q190 105 197 99" fill="none" stroke="#124d68" stroke-width="3" stroke-linecap="round"/>
+            <path d="M77 83 L87 89 M98 79 L107 86" fill="none" stroke="#1787ac" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+          <span class="dino-caption">BLUE TRIKE</span>
+        </div>
+      </div>
+
+      <div class="how-card">
+        <h2>How to play</h2>
+        <ol>
+          <li>Choose an empty square.</li>
+          <li>Counter the dinosaur's move: <b>Chomp → Dodge</b>, <b>Stomp → Jump</b>, <b>Tail Swipe → Duck</b>.</li>
+          <li>Win the duel for X. Make three Xs in a row to win!</li>
+        </ol>
+      </div>
+      <button class="button button-primary button-start" id="start-button" type="button">Let's play! <span aria-hidden="true">➜</span></button>
+      <p class="tiny-note">No fossils were harmed in the making of this game.</p>
+    </section>
+
+    <section class="screen board-screen" id="board-screen" aria-labelledby="board-title" hidden>
+      <div class="section-heading">
+        <p class="eyebrow">THE JUNGLE CLEARING</p>
+        <h1 id="board-title">Pick your next square!</h1>
+        <p id="board-instructions">Tap an empty spot to start a dinosaur duel.</p>
+      </div>
+      <div class="board-layout">
+        <aside class="player-card player-card-you">
+          <div class="mini-dino mini-dino-purple" aria-hidden="true">
+            <svg viewBox="0 0 100 76"><path d="M9 53 Q0 50 6 40 L24 45 Q31 25 51 30 L64 35 L74 28 Q86 25 91 37 L98 42 L95 51 L84 54 L81 66 L71 66 L70 55 L58 55 L55 68 L45 68 L45 53 L31 51 L23 62 L16 58 Z" fill="currentColor" stroke="#38235e" stroke-width="3" stroke-linejoin="round"/><path d="M65 35 Q68 17 83 18 L97 27 L97 39 L86 44 L75 42 Z" fill="currentColor" stroke="#38235e" stroke-width="3" stroke-linejoin="round"/><circle cx="84" cy="28" r="4" fill="white"/><circle cx="85" cy="28" r="2" fill="#302044"/><path d="M84 42 L96 41 L94 47 L84 47 Z" fill="#ffd7e6" stroke="#38235e" stroke-width="2"/></svg>
+          </div>
+          <span class="card-label">YOU</span>
+          <strong class="card-mark x-text">X</strong>
+          <span class="health-label" id="player-health">Health: 2 of 2</span>
+          <div class="health-dots" id="player-health-dots" aria-hidden="true"><span>♥</span><span>♥</span></div>
+        </aside>
+
+        <div class="tic-board" id="tic-board" role="group" aria-label="Tic-tac-toe board">
+          <button class="cell" type="button" data-cell="0" aria-label="Row 1, column 1, empty"></button>
+          <button class="cell" type="button" data-cell="1" aria-label="Row 1, column 2, empty"></button>
+          <button class="cell" type="button" data-cell="2" aria-label="Row 1, column 3, empty"></button>
+          <button class="cell" type="button" data-cell="3" aria-label="Row 2, column 1, empty"></button>
+          <button class="cell" type="button" data-cell="4" aria-label="Row 2, column 2, empty"></button>
+          <button class="cell" type="button" data-cell="5" aria-label="Row 2, column 3, empty"></button>
+          <button class="cell" type="button" data-cell="6" aria-label="Row 3, column 1, empty"></button>
+          <button class="cell" type="button" data-cell="7" aria-label="Row 3, column 2, empty"></button>
+          <button class="cell" type="button" data-cell="8" aria-label="Row 3, column 3, empty"></button>
+        </div>
+
+        <aside class="player-card player-card-dino">
+          <div class="mini-dino mini-dino-blue" aria-hidden="true">
+            <svg viewBox="0 0 100 76"><path d="M8 53 Q1 50 7 39 L23 43 Q31 24 51 30 L66 36 Q77 31 87 41 L96 43 Q102 50 94 57 L83 59 L80 68 L70 68 L69 56 L56 56 L53 68 L43 68 L43 55 L28 54 L21 63 L14 59 Z" fill="currentColor" stroke="#124d68" stroke-width="3" stroke-linejoin="round"/><path d="M62 37 L65 20 L76 31 L86 17 L89 38 Q99 42 98 51 L84 57 L73 51 Z" fill="currentColor" stroke="#124d68" stroke-width="3" stroke-linejoin="round"/><circle cx="82" cy="40" r="4" fill="white"/><circle cx="83" cy="40" r="2" fill="#18334a"/></svg>
+          </div>
+          <span class="card-label">DINOSAUR</span>
+          <strong class="card-mark o-text">O</strong>
+          <span class="health-label">Duel health resets each square</span>
+          <div class="health-dots health-dots-blue" aria-hidden="true"><span>♥</span><span>♥</span></div>
+        </aside>
+      </div>
+      <div class="board-legend"><span><b class="x-text">X</b> = you won a duel</span><span><b class="o-text">O</b> = dinosaur won a duel</span></div>
+      <p class="status-message" id="board-status" role="status" aria-live="polite">Your adventure starts here!</p>
+    </section>
+
+    <section class="screen duel-screen" id="duel-screen" aria-labelledby="duel-title" hidden>
+      <div class="section-heading">
+        <p class="eyebrow">A WILD ENCOUNTER!</p>
+        <h1 id="duel-title">Dino duel!</h1>
+        <p id="duel-subtitle">Counter the move to win this square.</p>
+      </div>
+      <div class="duel-arena">
+        <div class="combatant combatant-player">
+          <div class="arena-dino arena-dino-purple" aria-hidden="true">
+            <svg viewBox="0 0 180 130"><ellipse cx="88" cy="115" rx="60" ry="8" fill="#173c32" opacity=".15"/><path d="M30 91 Q12 88 15 72 L42 79 Q53 52 83 57 L108 64 L124 54 Q143 50 151 66 L169 73 L166 88 L149 91 L145 109 L131 109 L130 92 L109 92 L104 112 L91 112 L91 91 L67 88 L53 104 L42 101 Z" fill="#9860e9" stroke="#38235e" stroke-width="5" stroke-linejoin="round"/><path d="M105 64 Q115 39 137 37 L159 47 L170 62 L162 77 L143 80 L132 92 L115 88 Z" fill="#9860e9" stroke="#38235e" stroke-width="5" stroke-linejoin="round"/><path d="M146 70 L169 70 L166 81 L147 83 Z" fill="#ffd7e6" stroke="#38235e" stroke-width="3"/><circle cx="146" cy="52" r="7" fill="white"/><circle cx="148" cy="53" r="3" fill="#302044"/><path d="M81 77 L95 82 L91 89" fill="none" stroke="#6d42bb" stroke-width="4" stroke-linecap="round"/></svg>
+          </div>
+          <h2>You</h2>
+          <p class="health-label" id="duel-player-health">Health: 2 of 2</p>
+          <div class="health-track"><span id="duel-player-bar"></span></div>
+        </div>
+        <div class="arena-vs" aria-hidden="true">VS</div>
+        <div class="combatant combatant-dino">
+          <div class="arena-dino arena-dino-blue" aria-hidden="true">
+            <svg viewBox="0 0 180 130"><ellipse cx="88" cy="115" rx="60" ry="8" fill="#173c32" opacity=".15"/><path d="M28 91 Q12 88 17 72 L41 78 Q52 53 82 58 L106 65 Q125 59 140 75 L162 77 Q175 82 168 95 L153 101 L149 112 L135 112 L132 95 L109 95 L104 113 L90 113 L90 94 L63 92 L49 105 L39 101 Z" fill="#39b9dc" stroke="#124d68" stroke-width="5" stroke-linejoin="round"/><path d="M105 65 L112 42 L128 56 L141 36 L150 66 Q166 67 172 83 L160 96 L138 95 L125 84 L107 84 Z" fill="#39b9dc" stroke="#124d68" stroke-width="5" stroke-linejoin="round"/><path d="M109 66 L99 47 L122 57 L137 37 L144 63" fill="#b9f0f7" stroke="#124d68" stroke-width="4" stroke-linejoin="round"/><circle cx="147" cy="76" r="6" fill="white"/><circle cx="149" cy="77" r="3" fill="#18334a"/><path d="M154 89 Q163 93 168 87" fill="none" stroke="#124d68" stroke-width="3" stroke-linecap="round"/></svg>
+          </div>
+          <h2>Dinosaur</h2>
+          <p class="health-label" id="duel-dino-health">Health: 2 of 2</p>
+          <div class="health-track health-track-blue"><span id="duel-dino-bar"></span></div>
+        </div>
+      </div>
+      <div class="move-card" aria-live="polite">
+        <span class="move-label">THE DINOSAUR USES...</span>
+        <strong class="move-name" id="dino-move-name">CHOMP!</strong>
+        <p id="move-hint">Quick! How will you respond?</p>
+      </div>
+      <div class="response-area" id="response-area">
+        <p class="response-prompt">Pick your counter:</p>
+        <div class="response-buttons">
+          <button class="button response-button" type="button" data-response="Dodge"><span aria-hidden="true">💨</span> Dodge</button>
+          <button class="button response-button" type="button" data-response="Jump"><span aria-hidden="true">⬆</span> Jump</button>
+          <button class="button response-button" type="button" data-response="Duck"><span aria-hidden="true">↘</span> Duck</button>
+        </div>
+      </div>
+      <div class="duel-feedback" id="duel-feedback" role="status" aria-live="polite" hidden></div>
+      <div class="duel-actions">
+        <button class="button button-primary" id="next-exchange-button" type="button" hidden>Next exchange <span aria-hidden="true">➜</span></button>
+        <button class="button button-primary" id="return-board-button" type="button" hidden>Return to board <span aria-hidden="true">➜</span></button>
+      </div>
+    </section>
+
+    <section class="screen final-screen" id="final-screen" aria-labelledby="final-title" hidden>
+      <div class="celebration" aria-hidden="true">✦ ✨ 🌿 ✨ ✦</div>
+      <div class="final-mascot" id="final-mascot" aria-hidden="true">🦖</div>
+      <p class="eyebrow">JUNGLE CHAMPION</p>
+      <h1 id="final-title">You win!</h1>
+      <p id="final-message">Three Xs in a row. You're the king of the jungle!</p>
+      <div class="final-board-summary" id="final-board-summary" aria-label="Final board"></div>
+      <button class="button button-primary button-start" id="play-again-button" type="button">Play again <span aria-hidden="true">↻</span></button>
+    </section>
+
+    <footer class="footer">
+      <span>Made for dino-sized fun</span>
+      <span aria-hidden="true">✦</span>
+      <span>Explore • Duel • Repeat</span>
+    </footer>
+  </main>
+</body>
+</html>
