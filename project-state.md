@@ -54,7 +54,7 @@ All are in https://github.com/mirandaheydt/vibe-coding-game on main.
 
 ## Current blocker or last change
 
-Last change: added the first playable version across index.html, styles.css, and game.js; added game-rules.md; updated README.md.
+Last change: refined all six dinosaur illustrations toward the wireframe's classic cartoon T. rex and triceratops direction; enlarged the board area; reduced X/O sizing; fixed the board grid to use three equal-height rows so marks do not resize it.
 
 Exact next check:
 1. Download the repository with GitHub's Code → Download ZIP.
@@ -67,7 +67,7 @@ Actual result: Not yet observed in a browser.
 
 ## Next action
 
-One small task: manually test the first duel in a browser.
+One small task: open the updated index.html in a browser and check that the new dinosaur shapes look right, then confirm the board stays the same size when an X or O appears.
 
 Completion check: report whether the board opens, the duel starts, and one Dodge response changes health exactly once.
 
