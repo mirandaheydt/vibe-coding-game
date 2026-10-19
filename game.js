@@ -258,7 +258,10 @@
   playAgainButton.addEventListener("click", restartGame);
   homeLink.addEventListener("click", event => {
     event.preventDefault();
-    if (gameStarted) restartGame();
+    resetState();
+    gameStarted = false;
+    showScreen("welcome");
+    startButton.focus();
   });
   cells.forEach((cell, index) => cell.addEventListener("click", () => beginDuel(index)));
   responseButtons.forEach(button => {
