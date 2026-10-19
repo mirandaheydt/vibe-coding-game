@@ -19,13 +19,13 @@ Purpose: A small 2D dinosaur-themed tic-tac-toe game set in a Jurassic jungle. C
 
 First version includes:
 - Welcome/instructions screen, 3-by-3 board, short dinosaur duel, final result, restart, and play again.
-- Dinosaur move sequence Chomp → Stomp → Tail Swipe; matching responses Dodge → Jump → Duck.
-- Each duel starts with 2 health per side. Correct response removes 1 dinosaur health; incorrect response removes 1 player health.
+- Random dinosaur move each exchange (Chomp, Stomp, or Tail Swipe); matching responses Dodge → Jump → Duck.
+- Each duel starts with 3 health per side. Correct response removes 1 dinosaur health; incorrect response removes 1 player health.
 - A duel win awards X; a duel loss awards O. Three Xs wins, three Os means dinosaur wins, and a full board without a line draws.
 - Responsive layout, keyboard-focus styling, touch/mouse buttons, visible health text, and simple drawn SVG dinosaur art.
-- No backend, account, downloaded art, paid service, timer, sound, leaderboard, analytics, or multiplayer.
+- No backend, account, externally hosted art, paid service, timer, sound, leaderboard, analytics, or multiplayer.
 
-Out of scope: New moves, random attacks, upgrades, extra levels, backend services, and deployment until explicitly requested.
+Out of scope: New moves, upgrades, extra levels, backend services, and deployment until explicitly requested.
 
 ## Files the next assistant must receive
 
@@ -54,14 +54,14 @@ All are in https://github.com/mirandaheydt/vibe-coding-game on main.
 
 ## Current blocker or last change
 
-Last change: refined all six dinosaur illustrations toward the wireframe's classic cartoon T. rex and triceratops direction; enlarged the board area; reduced X/O sizing; fixed the board grid to use three equal-height rows so marks do not resize it.
+Last change: moved the two uploaded idle PNG character assets into assets/ and replaced inline dinosaur SVG drawings throughout the game, including the final result mascot. Earlier change randomized dinosaur attacks and raised both health pools to 3. Prior visual work refined all six dinosaur illustrations toward the wireframe's classic cartoon T. rex and triceratops direction; enlarged the board area; reduced X/O sizing; fixed the board grid to use three equal-height rows so marks do not resize it.
 
 Exact next check:
 1. Download the repository with GitHub's Code → Download ZIP.
 2. Unzip it and open index.html in a browser.
 3. Press Let's play, select an empty square, and try Dodge against Chomp.
 
-Expected result: the board appears; choosing a square opens a duel; Dodge reduces dinosaur health from 2 to 1, leaves player health at 2, disables the response buttons, and offers Next exchange.
+Expected result: the board appears; choosing a square opens a duel; the correct response reduces dinosaur health from 3 to 2, leaves player health at 3, disables the response buttons, and offers Next exchange.
 
 Actual result: Not yet observed in a browser.
 

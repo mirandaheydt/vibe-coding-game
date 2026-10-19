@@ -223,15 +223,15 @@
     if (result === "player") {
       title.textContent = "You win!";
       message.textContent = "Three Xs in a row! You're the king or queen of this Jurassic jungle.";
-      mascot.textContent = "🏆";
+      mascot.querySelector("img").src = "assets/trex-idle.png";
     } else if (result === "dinosaur") {
       title.textContent = "Dinosaur wins!";
       message.textContent = "The dinosaur made three Os in a row. Ready to challenge it again?";
-      mascot.textContent = "🦖";
+      mascot.querySelector("img").src = "assets/triceratops-idle.png";
     } else {
       title.textContent = "It's a draw!";
       message.textContent = "The jungle is evenly matched. Play again and see who claims the clearing!";
-      mascot.textContent = "🌿";
+      mascot.querySelector("img").src = "assets/trex-idle.png";
     }
     const summary = document.getElementById("final-board-summary");
     summary.replaceChildren();
